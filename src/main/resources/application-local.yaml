@@ -1,0 +1,38 @@
+spring:
+  kafka:
+    bootstrap-servers: 'localhost:9092,localhost:9093,localhost:9094'
+    client-id: stream-processor-balance
+    producer:
+      value-serializer: io.cloudevents.kafka.CloudEventSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+custom:
+  transfer-consumer:
+    topic-name: TRANSFER
+    group-id: BALANCE-TRANSFER-GROUP
+    events:
+      - team.nautilus.event.transfer.new
+      - team.nautilus.event.ncb.cashout.new
+  accounts-consumer:
+    topic-name: ACCOUNTS
+    group-id: BALANCE-ACCOUNTS-GROUP
+    events:
+      - team.nautilus.event.accounts.new
+  balance-consumer:
+    topic-name: BALANCE
+    group-id: BALANCE-BALANCE-GROUP
+    events:
+      - team.nautilus.event.balance.credit
+      - team.nautilus.event.balance.ncb.debit 
+  ncb-balance-consumer:
+    topic-name: NCB_OPERATIONS
+    group-id: NCB-BALANCE-GROUP
+    events:
+      - team.nautilus.event.ncb.transfer.cashout.failure   
+  producer:
+    topic-name: BALANCE
+
+client:
+  core-balance-ms: http://localhost:8080/
+  
+  

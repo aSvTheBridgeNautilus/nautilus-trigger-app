@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: stream-processor-balance
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  profiles:
+    active: local
+
+server:
+  port: 8092

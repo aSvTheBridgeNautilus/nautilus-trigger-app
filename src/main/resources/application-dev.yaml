@@ -1,0 +1,40 @@
+spring:
+  kafka:
+    bootstrap-servers: usedcorehn.servicebus.windows.net:9093
+    client-id: stream-processor-balance
+    properties:
+      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://usedcorehn.servicebus.windows.net/;SharedAccessKeyName=coretransfersms;SharedAccessKey=f84ex6JI3vP5daWgys8PaKcTUOr0caVTzRCQMEB7TaM=";
+      sasl.mechanism: PLAIN
+      security.protocol: SASL_SSL
+    producer:
+      value-serializer: io.cloudevents.kafka.CloudEventSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+custom:
+  transfer-consumer:
+    topic-name: TRANSFER
+    group-id: BALANCE-TRANSFER-GROUP
+    events:
+      - team.nautilus.event.transfer.new
+      - team.nautilus.event.ncb.cashout.new
+  accounts-consumer:
+    topic-name: ACCOUNTS
+    group-id: BALANCE-ACCOUNTS-GROUP
+    events:
+      - team.nautilus.event.accounts.new
+  balance-consumer:
+    topic-name: BALANCE
+    group-id: BALANCE-BALANCE-GROUP
+    events:
+      - team.nautilus.event.balance.credit
+      - team.nautilus.event.balance.ncb.debit
+  ncb-balance-consumer:
+    topic-name: NCB_OPERATIONS
+    group-id: NCB-BALANCE-GROUP
+    events:
+      - team.nautilus.event.ncb.transfer.cashout.failure      
+  producer:
+    topic-name: BALANCE
+
+client:
+  core-balance-ms: http://corebalancesms:8080/
