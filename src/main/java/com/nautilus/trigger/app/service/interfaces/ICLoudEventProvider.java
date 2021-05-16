@@ -4,6 +4,8 @@ import com.nautilus.trigger.app.application.dto.interfaces.PublishedEventRequest
 
 public interface ICLoudEventProvider {
 	
-	void publish(PublishedEventRequest request);
+	void publishNCBTransferCashOutFailure(PublishedEventRequest request);
+	
+	void publishNCBCashOutNew(PublishedEventRequest request);
 
 }
