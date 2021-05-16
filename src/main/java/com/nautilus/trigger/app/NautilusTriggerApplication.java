@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NautilusProccesorTriggerAppApplication {
+public class NautilusTriggerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NautilusProccesorTriggerAppApplication.class, args);
+		SpringApplication.run(NautilusTriggerApplication.class, args);
 	}
 
 }

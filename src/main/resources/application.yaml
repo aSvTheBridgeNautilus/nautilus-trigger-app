@@ -1,10 +1,10 @@
 spring:
   application:
-    name: stream-processor-balance
+    name: nautilus-trigger-app
   jackson:
     property-naming-strategy: SNAKE_CASE
   profiles:
     active: local
 
 server:
-  port: 8092
+  port: 9099
