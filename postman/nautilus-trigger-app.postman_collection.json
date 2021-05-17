@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "80234dc5-0fb7-4023-b158-c6f005679aaa",
+		"name": "nautilus-trigger-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "NCB Transfer Cash-Out Failure",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"transfer_id\": 29,\r\n    \"user_id\": \"ignacio.lizarralde@nautilus.team\", \r\n    \"bank_identifier\" : \"NCB\",\r\n    \"account_reference\": \"abc-123\",\r\n    \"account_id\": 39,\r\n    \"amount\": 1000,\r\n    \"currency\": \"JMD\",\r\n    \"bank_reference_id\":\"1234\",\r\n    \"error_details\": \"test duplicate second time\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9099/trigger-app/publish//ncb/cash-out/failure",
+					"host": [
+						"localhost"
+					],
+					"port": "9099",
+					"path": [
+						"trigger-app",
+						"publish",
+						"",
+						"ncb",
+						"cash-out",
+						"failure"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NCB Cash-Out New",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"transfer_id\": 29,\r\n    \"user_id\": \"ignacio.lizarralde@nautilus.team\", \r\n    \"bank_identifier\" : \"NCB\",\r\n    \"account_reference\": \"abc-123\",\r\n    \"account_id\": 39,\r\n    \"amount\": 1000,\r\n    \"currency\": \"JMD\",\r\n    \"bank_reference_id\":\"1234\",\r\n    \"error_details\": \"test duplicate second time\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9099/trigger-app/publish/ncb/cash-out/new",
+					"host": [
+						"localhost"
+					],
+					"port": "9099",
+					"path": [
+						"trigger-app",
+						"publish",
+						"ncb",
+						"cash-out",
+						"new"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
