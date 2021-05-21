@@ -20,7 +20,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:9099/trigger-app/publish//ncb/cash-out/failure",
+					"raw": "localhost:9099/trigger-app/publish/ncb/cash-out/failure",
 					"host": [
 						"localhost"
 					],
