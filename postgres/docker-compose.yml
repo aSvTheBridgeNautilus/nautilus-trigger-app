@@ -9,11 +9,3 @@ services:
     environment:
       - POSTGRES_USER=compose-postgres
       - POSTGRES_PASSWORD=compose-postgres
-
-  db-gui:
-    image: 'dpage/pgadmin4'
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@example.com
-      - PGADMIN_DEFAULT_PASSWORD=admin123
-    ports:
-      - "5050:80"
