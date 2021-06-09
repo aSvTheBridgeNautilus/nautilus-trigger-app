@@ -1,6 +1,6 @@
 version: '2'
 services:
-  zookeeper:
+  zookeeper1:
     image: confluentinc/cp-zookeeper:latest
     ports:
      - 2181:2181
@@ -11,16 +11,71 @@ services:
       - "moby:127.0.0.1"
       - "localhost: 127.0.0.1"
 
-  kafka:
+  kafka1:
     image: confluentinc/cp-kafka:latest
     ports:
      - 9092:9092
     depends_on:
-      - zookeeper
+      - zookeeper1
     environment:
       KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper1:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
+    extra_hosts:
+      - "moby:127.0.0.1"
+      - "localhost: 127.0.0.1"
+
+  zookeeper2:
+    image: confluentinc/cp-zookeeper:latest
+    ports:
+     - 2182:2182
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2182
+      ZOOKEEPER_TICK_TIME: 2000
+    extra_hosts:
+      - "moby:127.0.0.1"
+      - "localhost: 127.0.0.1"
+
+  kafka2:
+    image: confluentinc/cp-kafka:latest
+    ports:
+     - 9093:9093
+    depends_on:
+      - zookeeper2
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper2:2182
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9093
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
+    extra_hosts:
+      - "moby:127.0.0.1"
+      - "localhost: 127.0.0.1"
+
+
+  zookeeper3:
+    image: confluentinc/cp-zookeeper:latest
+    ports:
+     - 2183:2183
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2183
+      ZOOKEEPER_TICK_TIME: 2000
+    extra_hosts:
+      - "moby:127.0.0.1"
+      - "localhost: 127.0.0.1"
+
+  kafka3:
+    image: confluentinc/cp-kafka:latest
+    ports:
+     - 9094:9094
+    depends_on:
+      - zookeeper3
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper3:2183
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9094
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
       KAFKA_DELETE_TOPIC_ENABLE: "true"
     extra_hosts:
