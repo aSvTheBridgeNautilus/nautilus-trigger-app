@@ -2,7 +2,7 @@ version: '2.1'
 
 services:
 
-  zookeeper1:
+  zookeep1:
     image: confluentinc/cp-zookeeper:latest
     ports:
      - 2181:2181
@@ -10,13 +10,13 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     volumes:
-      - ./zk-multiple-kafka-multiple/zookeep2/data:/data
-      - ./zk-multiple-kafka-multiple/zookeep2/datalog:/datalog
+      - ./zk-multiple-kafka-multiple/zookeep1/data:/data
+      - ./zk-multiple-kafka-multiple/zookeep1/datalog:/datalog
     extra_hosts:
       - "moby:127.0.0.1"
       - "localhost: 127.0.0.1"
 
-  zookeeper2:
+  zookeep2:
     image: confluentinc/cp-zookeeper:latest
     ports:
      - 2182:2182
@@ -30,7 +30,7 @@ services:
       - "moby:127.0.0.1"
       - "localhost: 127.0.0.1"
 
-  zookeeper3:
+  zookeep3:
     image: confluentinc/cp-zookeeper:latest
     ports:
      - 2183:2183
@@ -38,8 +38,8 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2183
       ZOOKEEPER_TICK_TIME: 2000
     volumes:
-      - ./zk-multiple-kafka-multiple/zookeep2/data:/data
-      - ./zk-multiple-kafka-multiple/zookeep2/datalog:/datalog
+      - ./zk-multiple-kafka-multiple/zookeep3/data:/data
+      - ./zk-multiple-kafka-multiple/zookeep3/datalog:/datalog
     extra_hosts:
       - "moby:127.0.0.1"
       - "localhost: 127.0.0.1"
@@ -51,12 +51,12 @@ services:
     volumes:
       - ./zk-multiple-kafka-multiple/kafka1/data:/var/lib/kafka/data
     depends_on:
-      - zookeeper1
-      - zookeeper2
-      - zookeeper3
+      - zookeep1
+      - zookeep2
+      - zookeep3
     environment:
       KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181,zookeeper2:2182,zookeeper3:2183"
+      KAFKA_ZOOKEEPER_CONNECT: "zookeep1:2181,zookeep2:2182,zookeep3:2183"
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
     extra_hosts:
       - "moby:127.0.0.1"
@@ -67,14 +67,14 @@ services:
     ports:
      - 9093:9093
     volumes:
-      - ./zk-multiple-kafka-multiple/kafka1/data:/var/lib/kafka/data
+      - ./zk-multiple-kafka-multiple/kafka2/data:/var/lib/kafka/data
     depends_on:
-      - zookeeper1
-      - zookeeper2
-      - zookeeper3
+      - zookeep1
+      - zookeep2
+      - zookeep3
     environment:
       KAFKA_BROKER_ID: 2
-      KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181,zookeeper2:2182,zookeeper3:2183"
+      KAFKA_ZOOKEEPER_CONNECT: "zookeep1:2181,zookeep2:2182,zookeep3:2183"
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9093
     extra_hosts:
       - "moby:127.0.0.1"
@@ -85,14 +85,14 @@ services:
     ports:
      - 9094:9094
     volumes:
-      - ./zk-multiple-kafka-multiple/kafka1/data:/var/lib/kafka/data
+      - ./zk-multiple-kafka-multiple/kafka3/data:/var/lib/kafka/data
     depends_on:
-      - zookeeper1
-      - zookeeper2
-      - zookeeper3
+      - zookeep1
+      - zookeep2
+      - zookeep3
     environment:
       KAFKA_BROKER_ID: 3
-      KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181,zookeeper2:2182,zookeeper3:2183"
+      KAFKA_ZOOKEEPER_CONNECT: "zookeep1:2181,zookeep2:2182,zookeep3:2183"
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9094
     extra_hosts:
       - "moby:127.0.0.1"
