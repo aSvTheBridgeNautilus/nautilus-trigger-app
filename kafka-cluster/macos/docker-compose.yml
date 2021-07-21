@@ -12,6 +12,9 @@ services:
     extra_hosts:
       - "moby:127.0.0.1"
       - "localhost: 127.0.0.1"
+    volumes:
+      - ./zk-multiple-kafka-multiple/zookeep1/data:/data
+      - ./zk-multiple-kafka-multiple/zookeep1/datalog:/datalog
 
   zookeep2:
     image: confluentinc/cp-zookeeper:latest
@@ -23,6 +26,9 @@ services:
     extra_hosts:
       - "moby:127.0.0.1"
       - "localhost: 127.0.0.1"
+    volumes:
+      - ./zk-multiple-kafka-multiple/zookeep2/data:/data
+      - ./zk-multiple-kafka-multiple/zookeep2/datalog:/datalog
 
   zookeep3:
     image: confluentinc/cp-zookeeper:latest
@@ -34,6 +40,9 @@ services:
     extra_hosts:
       - "moby:127.0.0.1"
       - "localhost: 127.0.0.1"
+    volumes:
+      - ./zk-multiple-kafka-multiple/zookeep3/data:/data
+      - ./zk-multiple-kafka-multiple/zookeep3/datalog:/datalog
 
   kafka1:
     image: confluentinc/cp-kafka:latest
@@ -41,10 +50,14 @@ services:
      - 9092:9092
     depends_on:
       - zookeep1
+      - zookeep2
+      - zookeep3
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeep1:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+    volumes:
+      - ./zk-multiple-kafka-multiple/kafka1/data:/var/lib/kafka/data
     extra_hosts:
       - "moby:127.0.0.1"
       - "localhost: 127.0.0.1"
@@ -54,11 +67,15 @@ services:
     ports:
      - 9093:9093
     depends_on:
+      - zookeep1
       - zookeep2
+      - zookeep3
     environment:
       KAFKA_BROKER_ID: 2
       KAFKA_ZOOKEEPER_CONNECT: zookeep2:2182
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9093
+    volumes:
+      - ./zk-multiple-kafka-multiple/kafka2/data:/var/lib/kafka/data
     extra_hosts:
       - "moby:127.0.0.1"
       - "localhost: 127.0.0.1"
@@ -68,11 +85,15 @@ services:
     ports:
      - 9094:9094
     depends_on:
+      - zookeep1
+      - zookeep2
       - zookeep3
     environment:
       KAFKA_BROKER_ID: 3
       KAFKA_ZOOKEEPER_CONNECT: zookeep3:2183
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9094
+    volumes:
+      - ./zk-multiple-kafka-multiple/kafka3/data:/var/lib/kafka/data
     extra_hosts:
       - "moby:127.0.0.1"
       - "localhost: 127.0.0.1"
