@@ -1,5 +1,5 @@
-from balance b 
-group by user_id
+truncate table public.balance;
+truncate table public.billing_period;
 
 INSERT INTO public.balance(id,account_id, amount, balance, currency, comments, movement_id, operation_type, reference_number, source_user_id, target_user_id, timestamp_utc, user_id) VALUES
 (1,26, 0, 0, 'JMD', 'Init Balance', 1001, 2, 1, 'emanuel.Herrera@nautilus.team', 'emanuel.Herrera@nautilus.team', '2021-01-01T00:00:00Z','emanuel.Herrera@nautilus.team');
@@ -47,7 +47,7 @@ INSERT INTO public.balance(id,account_id, amount, balance, currency, comments, m
 INSERT INTO public.balance(id,account_id, amount, balance, currency, comments, movement_id, operation_type, reference_number, source_user_id, target_user_id, timestamp_utc, user_id) VALUES
 (22,33, 1000, 1000, 'JMD', 'Cash Deposit', 2008, 1, 2, 'gonzalo.bordoy@nautilus.team', 'gonzalo.bordoy@nautilus.team', Now(),'gonzalo.bordoy@nautilus.team');
 INSERT INTO public.balance(id,account_id, amount, balance, currency, comments, movement_id, operation_type, reference_number, source_user_id, target_user_id, timestamp_utc, user_id) VALUES
-(23,34, 1000, 1000, 'JMD', 'Cash Deposit', 1009, 1, 2, 'andres.arias@nautilus.team', 'andres.arias@nautilus.team', Now(),'andres.arias@nautilus.team');
+(23,34, 10000, 10000, 'JMD', 'Cash Deposit', 1009, 1, 2, 'andres.arias@nautilus.team', 'andres.arias@nautilus.team', Now(),'andres.arias@nautilus.team');
 INSERT INTO public.balance(id,account_id, amount, balance, currency, comments, movement_id, operation_type, reference_number, source_user_id, target_user_id, timestamp_utc, user_id) VALUES
 (24,35, 1000, 1000, 'JMD', 'Cash Deposit', 2010, 1, 2, 'deyvid.ferrer@nautilus.team', 'deyvid.ferrer@nautilus.team', Now(),'deyvid.ferrer@nautilus.team');
 INSERT INTO public.balance(id,account_id, amount, balance, currency, comments, movement_id, operation_type, reference_number, source_user_id, target_user_id, timestamp_utc, user_id) VALUES
@@ -57,11 +57,11 @@ INSERT INTO public.balance(id,account_id, amount, balance, currency, comments, m
 INSERT INTO public.balance(id,account_id, amount, balance, currency, comments, movement_id, operation_type, reference_number, source_user_id, target_user_id, timestamp_utc, user_id) VALUES
 (27,38, 1000, 1000, 'JMD', 'Cash Deposit', 2013, 1, 2, 'jorge.gomez@nautilus.team', 'jorge.gomez@nautilus.team', Now(),'jorge.gomez@nautilus.team');
 INSERT INTO public.balance(id,account_id, amount, balance, currency, comments, movement_id, operation_type, reference_number, source_user_id, target_user_id, timestamp_utc, user_id) VALUES
-(28,39, 1000, 1000, 'JMD', 'Cash Deposit', 2014, 1, 2, 'auth0|606e0ed9e1b94d0076ad4dc4', 'auth0|606e0ed9e1b94d0076ad4dc4', Now(),'auth0|606e0ed9e1b94d0076ad4dc4');
+(28,39, 10000, 10000, 'JMD', 'Cash Deposit', 2014, 1, 2, 'auth0|606e0ed9e1b94d0076ad4dc4', 'auth0|606e0ed9e1b94d0076ad4dc4', Now(),'auth0|606e0ed9e1b94d0076ad4dc4');
 
 
 select 
-b   .user_id,
+b.user_id,
 sum(b.amount) as real_balance, 
 count(b.account_id) as trxs_count
 from balance b 
