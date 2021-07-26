@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nautilus.trigger.app.application.dto.interfaces.PublishedEventRequest;
+import com.nautilus.trigger.app.application.dto.record.DuplicateP2PTransfersRecord;
+import com.nautilus.trigger.app.application.dto.record.NCBTransferCashOutFailureRecord;
 import com.nautilus.trigger.app.application.properties.ApplicationProperties;
 import com.nautilus.trigger.app.service.interfaces.ICLoudEventProvider;
 
@@ -70,6 +72,18 @@ public class CloudEventProvider implements ICLoudEventProvider {
 		log.info("[CloudEventProvider:publishNCBTransferCashOutFailure] Story - 1950: sending message to Transfer");
 		kafkaTemplate.send(applicationProperties.getTransferConsumer().getTopicName(), event);
 
+	}
+
+	public void publishDuplicateTransfersFromTransferStreamProccesor(DuplicateP2PTransfersRecord request) {
+		// Build the event
+		
+		CloudEvent event = buildCloudEventFrom(request);
+		
+		// Transfer stream procesor
+		log.info("[CloudEventProvider:publishDuplicateTransfersFromTransferStreamProccesor] sending duplicate messages to Balance");
+		kafkaTemplate.send(applicationProperties.getTransferConsumer().getTopicName(), event);
+		kafkaTemplate.send(applicationProperties.getTransferConsumer().getTopicName(), event);
+		
 	}
 
 }

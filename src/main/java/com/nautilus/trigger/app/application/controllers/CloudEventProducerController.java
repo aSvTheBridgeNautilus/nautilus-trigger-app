@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nautilus.trigger.app.application.dto.record.DuplicateP2PTransfersRecord;
 import com.nautilus.trigger.app.application.dto.record.NCBCashOutNewRecord;
 import com.nautilus.trigger.app.application.dto.record.NCBTransferCashOutFailureRecord;
 import com.nautilus.trigger.app.service.CloudEventProvider;
@@ -23,6 +24,24 @@ import lombok.extern.slf4j.Slf4j;
 public class CloudEventProducerController {
 	
 	private final CloudEventProvider eventProvider;
+	
+	/*
+	 * Duplicate balance_transfers
+	 * */
+	@PostMapping(value = "/publish/transfer/duplicate_transfer")
+	public ResponseEntity<Object> produceDuplicateTransfersFromTransferStreamProccesor(
+			@RequestBody DuplicateP2PTransfersRecord payloadRequest){
+		log.info("[CloudEventProducerController:produceNCBTransferCashOutFailure] NCB Transfer Cash-Out Failure started");
+		
+		eventProvider.publishDuplicateTransfersFromTransferStreamProccesor(payloadRequest);
+		
+		Map<String, Object> responseBody = new HashMap<>();
+		responseBody.put("NCB Transfer Cash-Out Failure", "Message Sent!");
+		responseBody.put("Event Type", payloadRequest.getEventType());
+		responseBody.put("Payload", payloadRequest);
+		
+		return ResponseEntity.ok(responseBody);
+	}
 	
 	/*
 	 * Story - 1952, 2132
